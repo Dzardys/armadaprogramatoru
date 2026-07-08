@@ -60,16 +60,21 @@ function showSection(sectionId) {
         sec.classList.add('hidden');
     });
     const activeSec = document.getElementById(sectionId);
-    activeSec.classList.remove('hidden');
-    activeSec.classList.add('active');
+    if (activeSec) {
+        activeSec.classList.remove('hidden');
+        activeSec.classList.add('active');
+    }
     if(sectionId === 'letter' && !letterTyped) typeLetter();
     
+    // Automatické zatvorenie menu na mobile po kliknutí na sekciu
     const mobileNav = document.querySelector('nav');
     if(mobileNav) mobileNav.classList.remove('mobile-open');
 }
 
 function setupGlitterCursor() {
     const container = document.getElementById('cursor-trail-container');
+    if (!container) return; // Bezpečnostná poistka pre mobily
+    
     window.addEventListener('mousemove', (e) => {
         if (Math.random() > 0.15) return; 
         const particle = document.createElement('span');
@@ -96,12 +101,14 @@ function toggleMusic() {
     isPlaying = !isPlaying;
 }
 
-const letterText = "Ahoj lásko, \n\nvím, že vztah na dálku není vždycky jednoduchý a že ty kilometry mezi námi občas bolí. Proto jsem pro tebe vytvořil toto speciální bezpečné místo. \n\nMísto, které patří jenom nám dua. Kdykoliv ti bude smutno, najdeš zde mé důvody, vzpomínky, pexeso z našich fotek nebo krabičku poslední záchrany. Miluji tě čím dál víc!\n\nTvůj milující programátor ❤️";
+const letterText = "Ahoj lásko, \n\nvím, že vztah na dálku není vždycky jednoduchý a že ty kilometry mezi námi občas bolí. Proto jsem pro tebe vytvořil toto speciální bezpečné místo. \n\nMísto, které patří jenom nám dva. Kdykoliv ti bude smutno, najdeš zde mé důvody, vzpomínky, pexeso z našich fotek nebo krabičku poslední záchrany. Miluji tě čím dál víc!\n\nTvůj milující programátor ❤️";
 let letterIndex = 0;
 function typeLetter() {
+    const el = document.getElementById("typewriter-text");
+    if (!el) return;
     if (letterIndex < letterText.length) {
         let char = letterText.charAt(letterIndex);
-        document.getElementById("typewriter-text").innerHTML += (char === '\n') ? "<br>" : char;
+        el.innerHTML += (char === '\n') ? "<br>" : char;
         letterIndex++;
         setTimeout(typeLetter, 40);
     } else { letterTyped = true; }
@@ -109,19 +116,23 @@ function typeLetter() {
 
 function startLoveClock() {
     setInterval(() => {
+        const el = document.getElementById("time-display");
+        if (!el) return;
         const diff = new Date().getTime() - startDate;
-        document.getElementById("time-display").innerHTML = formatTime(diff);
+        el.innerHTML = formatTime(diff);
     }, 1000);
 }
 
 function startNextMeetClock() {
     setInterval(() => {
+        const el = document.getElementById("countdown-display");
+        if (!el) return;
         const diff = nextMeetDate - new Date().getTime();
         if (diff <= 0) {
-            document.getElementById("countdown-display").innerHTML = "KONEČNĚ SPOLU! ❤️🎉";
+            el.innerHTML = "KONEČNĚ SPOLU! ❤️🎉";
             return;
         }
-        document.getElementById("countdown-display").innerHTML = formatTime(diff);
+        el.innerHTML = formatTime(diff);
     }, 1000);
 }
 
@@ -136,10 +147,12 @@ function formatTime(diff) {
 function changePhoto(direction) {
     currentPhotoIndex = (currentPhotoIndex + direction + photos.length) % photos.length;
     const img = document.getElementById("galleryPhoto");
+    const cap = document.getElementById("photoCaption");
+    if(!img || !cap) return;
     img.style.opacity = 0.2;
     setTimeout(() => {
         img.src = photos[currentPhotoIndex].src;
-        document.getElementById("photoCaption").innerText = photos[currentPhotoIndex].caption;
+        cap.innerText = photos[currentPhotoIndex].caption;
         img.style.opacity = 1;
     }, 200);
 }
@@ -152,6 +165,7 @@ const moodResponses = {
 };
 function selectMood(mood) {
     const respBox = document.getElementById("mood-response");
+    if(!respBox) return;
     respBox.innerText = moodResponses[mood];
     respBox.classList.remove("hidden-msg");
     createHeartRain();
@@ -160,6 +174,7 @@ function selectMood(mood) {
 function revealReason(el, txt) { el.innerHTML = txt; el.style.background = "#ff7675"; el.style.color = "white"; }
 function generateLdrActivity() {
     const box = document.getElementById("ldr-activity-box");
+    if(!box) return;
     box.innerText = ldrActivities[Math.floor(Math.random() * ldrActivities.length)];
     box.classList.remove("hidden-msg");
     createHeartRain();
@@ -167,10 +182,11 @@ function generateLdrActivity() {
 
 function breakCookie() {
     const cookie = document.getElementById("cookie-graphic");
-    if(cookie.classList.contains('broken')) return;
+    if(!cookie || cookie.classList.contains('broken')) return;
     cookie.classList.add('broken');
     setTimeout(() => {
         const box = document.getElementById("compliment-box");
+        if(!box) return;
         box.innerText = compliments[Math.floor(Math.random() * compliments.length)];
         box.classList.remove("hidden-msg");
         createHeartRain();
@@ -179,9 +195,11 @@ function breakCookie() {
 
 function setupPexeso() {
     const board = document.getElementById("pexesoBoard");
+    if(!board) return;
     board.innerHTML = "";
     matchedPairs = 0;
-    document.getElementById("pexeso-win-box").classList.add("hidden-msg");
+    const winBox = document.getElementById("pexeso-win-box");
+    if(winBox) winBox.classList.add("hidden-msg");
 
     let pexesoArray = [];
     photos.forEach((p, index) => {
@@ -220,7 +238,8 @@ function flipPexesoCard() {
         matchedPairs++;
         firstCard = null; secondCard = null; lockBoard = false;
         if (matchedPairs === photos.length) {
-            document.getElementById("pexeso-win-box").classList.remove("hidden-msg");
+            const winBox = document.getElementById("pexeso-win-box");
+            if(winBox) winBox.classList.remove("hidden-msg");
             createHeartRain();
         }
     } else {
@@ -235,13 +254,18 @@ function flipPexesoCard() {
 function resetQuiz() { currentQuestionIndex = 0; quizScore = 0; document.getElementById("quiz-container").classList.remove("hidden-msg"); document.getElementById("quiz-result-container").classList.add("hidden-msg"); loadQuestion(); }
 function loadQuestion() {
     const q = quizData[currentQuestionIndex];
-    document.getElementById("quiz-question").innerText = q.question;
-    const optCont = document.getElementById("quiz-options"); optCont.innerHTML = "";
+    const qEl = document.getElementById("quiz-question");
+    const optCont = document.getElementById("quiz-options");
+    const prog = document.getElementById("quiz-progress");
+    if(!qEl || !optCont || !prog) return;
+
+    qEl.innerText = q.question;
+    optCont.innerHTML = "";
     q.options.forEach((o, i) => {
         const b = document.createElement("button"); b.classList.add("quiz-opt-btn"); b.innerText = o; b.onclick = () => { if(i===q.correct) {quizScore++; createHeartRain();} currentQuestionIndex++; if(currentQuestionIndex<quizData.length){loadQuestion();}else{showQuizResults();} };
         optCont.appendChild(b);
     });
-    document.getElementById("quiz-progress").innerText = `Otázka ${currentQuestionIndex+1} z ${quizData.length}`;
+    prog.innerText = `Otázka ${currentQuestionIndex+1} z ${quizData.length}`;
 }
 function showQuizResults() {
     document.getElementById("quiz-container").classList.add("hidden-msg");
@@ -250,9 +274,11 @@ function showQuizResults() {
 }
 
 function initBucketList() {
+    const cont = document.getElementById("bucketListContainer");
+    if(!cont) return;
     let saved = JSON.parse(localStorage.getItem('loveBucketList')) || initialBucketList.map(t => ({text:t, checked:false}));
     localStorage.setItem('loveBucketList', JSON.stringify(saved));
-    const cont = document.getElementById("bucketListContainer"); cont.innerHTML = "";
+    cont.innerHTML = "";
     saved.forEach((item, i) => {
         const lbl = document.createElement("label"); if(item.checked) lbl.classList.add("checked");
         const chk = document.createElement("input"); chk.type = "checkbox"; chk.checked = item.checked;
@@ -261,9 +287,11 @@ function initBucketList() {
     });
 }
 function initCoupons() {
+    const cont = document.getElementById("couponsContainer");
+    if(!cont) return;
     let saved = JSON.parse(localStorage.getItem('loveCoupons')) || initialCoupons.map(t => ({text:t, used:false}));
     localStorage.setItem('loveCoupons', JSON.stringify(saved));
-    const cont = document.getElementById("couponsContainer"); cont.innerHTML = "";
+    cont.innerHTML = "";
     saved.forEach((item, i) => {
         const div = document.createElement("div"); div.classList.add("coupon");
         if(item.used) { div.classList.add("used"); div.innerText = item.text + " (VYUŽITO)"; }
@@ -272,12 +300,14 @@ function initCoupons() {
     });
 }
 function saveNote() {
-    const input = document.getElementById("noteInput"); const txt = input.value.trim(); if(!txt) return;
+    const input = document.getElementById("noteInput"); if(!input) return;
+    const txt = input.value.trim(); if(!txt) return;
     let notes = JSON.parse(localStorage.getItem('loveNotes')) || []; notes.push(txt);
     localStorage.setItem('loveNotes', JSON.stringify(notes)); input.value = ""; loadNotes(); createHeartRain();
 }
 function loadNotes() {
-    const board = document.getElementById("notesBoard"); board.innerHTML = "";
+    const board = document.getElementById("notesBoard"); if(!board) return;
+    board.innerHTML = "";
     let notes = JSON.parse(localStorage.getItem('loveNotes')) || [];
     notes.forEach((n, i) => {
         const div = document.createElement("div"); div.classList.add("saved-note"); div.innerText = n;
