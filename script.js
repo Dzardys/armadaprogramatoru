@@ -63,6 +63,9 @@ function showSection(sectionId) {
     activeSec.classList.remove('hidden');
     activeSec.classList.add('active');
     if(sectionId === 'letter' && !letterTyped) typeLetter();
+    
+    const mobileNav = document.querySelector('nav');
+    if(mobileNav) mobileNav.classList.remove('mobile-open');
 }
 
 function setupGlitterCursor() {
@@ -93,7 +96,7 @@ function toggleMusic() {
     isPlaying = !isPlaying;
 }
 
-const letterText = "Ahoj lásko, \n\nvím, že vztah na dálku není vždycky jednoduchý a že ty kilometry mezi námi občas bolí. Proto jsem pro tebe vytvořil toto speciální bezpečné místo. \n\nMísto, které patří jenom nám dvěma. Kdykoliv ti bude smutno, najdeš zde mé důvody, vzpomínky, pexeso z našich fotek nebo krabičku poslední záchrany. Miluji tě čím dál víc!\n\nTvůj milující programátor ❤️";
+const letterText = "Ahoj lásko, \n\nvím, že vztah na dálku není vždycky jednoduchý a že ty kilometry mezi námi občas bolí. Proto jsem pro tebe vytvořil toto speciální bezpečné místo. \n\nMísto, které patří jenom nám dua. Kdykoliv ti bude smutno, najdeš zde mé důvody, vzpomínky, pexeso z našich fotek nebo krabičku poslední záchrany. Miluji tě čím dál víc!\n\nTvůj milující programátor ❤️";
 let letterIndex = 0;
 function typeLetter() {
     if (letterIndex < letterText.length) {
@@ -111,7 +114,6 @@ function startLoveClock() {
     }, 1000);
 }
 
-// Next meeting countdown
 function startNextMeetClock() {
     setInterval(() => {
         const diff = nextMeetDate - new Date().getTime();
@@ -295,4 +297,9 @@ function createHeartRain() {
             setTimeout(() => { heart.remove(); }, 4500);
         }, i * 60);
     }
+}
+
+function toggleMenu() {
+    const nav = document.querySelector('nav');
+    if(nav) nav.classList.toggle('mobile-open');
 }
