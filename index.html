@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pro moji lásku 💗</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Comfortaa:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    
+    <div id="cursor-trail-container"></div>
+
+    <nav>
+        <button onclick="showSection('letter')">💌 Dopis</button>
+        <button onclick="showSection('timeline')">⏳ Příběh</button>
+        <button onclick="showSection('clock')">🕰️ Náš čas</button>
+        <button onclick="showSection('countdown')">✈️ Spolu za...</button>
+        <button onclick="showSection('gallery')">📸 Galerie</button>
+        <button onclick="showSection('ldr')">🌐 Na dálku</button>
+        <button onclick="showSection('mood')">🎭 Jak ti je?</button>
+        <button onclick="showSection('pexeso')">🧩 Pexeso</button>
+        <button onclick="showSection('reasons')">❤️ Důvody</button>
+        <button onclick="showSection('compliments')">🍪 Sušenka štěstí</button>
+        <button onclick="showSection('quiz')">🤔 Kvíz</button>
+        <button onclick="showSection('bucket')">🌍 Sny</button>
+        <button onclick="showSection('coupons')">🎟️ Kupóny</button>
+        <button onclick="showSection('notes')">📌 Nástěnka</button>
+    </nav>
+
+    <div class="music-player-container">
+        <div class="music-player-card">
+            <audio id="bgMusic" loop>
+                <source src="assets/music/nasa-pesnicka.mp3" type="audio/mpeg">
+            </audio>
+            <button id="musicBtn" onclick="toggleMusic()">🎵 Zapnout naši písničku</button>
+        </div>
+
+        <div class="spotify-card">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/2fuVbBan8XQ8JmGWMdnwCM?utm_source=generator&si=51f3bcd770734696" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>
+    </div>
+
+    <section id="letter" class="active">
+        <div class="card glass">
+            <h1>Pro tebe... 💫</h1>
+            <p id="typewriter-text"></p>
+        </div>
+    </section>
+
+    <section id="timeline" class="hidden">
+        <div class="card glass">
+            <h1>Jak to celé začalo ⏳</h1>
+            <div class="timeline-container">
+                <div class="timeline-item">
+                    <h3>První setkání</h3>
+                    <p>Ten den, kdy se naše cesty poprvé zkřížily a svět žacal dávat větší smysl.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>První rande</h3>
+                    <p>Nervozita, dlouhé povídaní a ten kouzelný moment, kdy jsme zjistili, jak moc si rozumíme.</p>
+                </div>
+                <div class="timeline-item">
+                    <h3>Oficiálně spolu</h3>
+                    <p>Okamžik, kdy jsme si řekli, že do toho jdeme naplno společne. Nejlepší rozhodnutí mého života.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="clock" class="hidden">
+        <div class="card glass">
+            <h1>Jsme spolu už... 🕰️❤️</h1>
+            <p>Kilometry nás sice dělí, ale každá sekunda s tebou mě přibližuje k momentu, kdy tě zase obejmu.</p>
+            <div class="time-box" id="time-display">Načítám drahocenné sekundy...</div>
+            <div class="distance-badge">📍 Spojeni srdcem, bez ohledu na vzdálenost</div>
+        </div>
+    </section>
+
+    <section id="countdown" class="hidden">
+        <div class="card glass">
+        <h1>Už se uvidíme za... ✈️💗</h1>
+        <p>Odpočítávání k momentu, kdy té konečně sevřu v náručí a nepustím.</p>
+        <div class="countdown-box" id="countdown-display">Načítám čas setkání...</div>
+        <div class="sparkle-alert">✨ Připrav si kufry, už se to blíží!</div>
+        </div>
+    </section>
+
+    <section id="gallery" class="hidden">
+        <div class="card glass">
+            <h1>Naše vzpomínky 📸</h1>
+            <p>Každá fotka skrývá kousek našeho štěstí.</p>
+            <div class="polaroid-wrapper">
+                <div class="polaroid">
+                    <div class="photo-frame">
+                        <img id="galleryPhoto" src="assets/images/foto1.jpg" alt="Naše vzpomínka">
+                    </div>
+                    <p id="photoCaption" class="polaroid-text">Naše první společná fotka</p>
+                </div>
+                <div class="gallery-controls">
+                    <button onclick="changePhoto(-1)">⬅️ Předchozí</button>
+                    <button onclick="changePhoto(1)">Další ➡️</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="ldr" class="hidden">
+        <div class="card glass">
+            <h1>Rande na dálku 🌐💑</h1>
+            <p>I když nejsme vedle sebe, můžeme zažít perfektní večer. Klikni a vylosuj si naši dnešní aktivitu!</p>
+            <button class="big-btn pulse" onclick="generateLdrActivity()">🎲 Vylosovat rande</button>
+            <div id="ldr-activity-box" class="ldr-box hidden-msg"></div>
+
+            <div class="ldr-ideas-list">
+                <h3>💡 Naše oblíbené tipy:</h3>
+                <ul>
+                    <li><strong>FaceTime vaření:</strong> Vybereme recept a vaříme ho synchronně.</li>
+                    <li><strong>Filmový maraton:</strong> Sledovaní přes Discord se zapnutou kamerou.</li>
+                    <li><strong>Společné plánování:</strong> Tvorba itineráře na náš další společný víkend.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="mood" class="hidden">
+        <div class="card glass">
+            <h1>Jak se dnes cítíš lásko? 🎭</h1>
+            <p>Vyber svoji aktuální náladu a já ti pošlu přesně tp, co potřebuješ slyšet.</p>
+            <div class="mood-grid">
+                <button class="mood-btn happy" onclick="selectMood('happy')">🥰 Šťastná</button>
+                <button class="mood-btn sad" onclick="selectMood('sad')">😔 Smutná / Chybíš mi</button>
+                <button class="mood-btn tired" onclick="selectMood('tired')">😴 Unavená</button>
+                <button class="mood-btn angry" onclick="selectMood('angry')">😤 Naštvaná</button>
+            </div>
+            <div id="mood-response" class="mood-response-box hidden-msg"></div>
+        </div>
+    </section>
+
+    <section id="pexeso" class="hidden">
+        <div class="card glass">
+            <h1>Naše společní Pexeso 🧩</h1>
+            <p>Najdi všechny dvojice našich vzpomínek! Dokončením hry odemkneš prémiový tajný kupón.</p>
+            <div class="pexeso-board" id="pexesoBoard"></div>
+            <div id="pexeso-win-box" class="hidden-msg">
+                <h3 style="color: #27ae60;">Gratuluji, vyhrála jsi! 🏆🎉</h3>
+                <p>Odemkla jsi bonusový VIP kupón na kompletní masáž celého těla!</p>
+            </div>
+        </div>
+    </section>
+
+   <section id="reasons" class="hidden">
+    <div class="card glass">
+        <h1>Proč tě miluju? 💗</h1>
+        <p>Klikni na srdíčka a odhal skrytá tajemství mé lásky k tebe.</p>
+        <div class="reasons-grid">
+            <div class="reason-card" onclick="revealReason(this, 'Protože máš ten nejkrásnější a nejčistší úsměv na celém světě.')">❤️</div>
+            <div class="reason-card" onclick="revealReason(this, 'Protože i v tom nejhorším dni mě dokážeš okamžitě uklidnit.')">❤️</div>
+            <div class="reason-card" onclick="revealReason(this, 'Protože jsi nejen moje dokonalá partnerka, ale i má princezna.')">❤️</div>
+            <div class="reason-card" onclick="revealReason(this, 'Protože obdivuji tvou sílu, chytrost a to, jak se staráš o lidi kolem sebe.')">❤️</div>
+            <div class="reason-card" onclick="revealReason(this, 'Protože s tebou je i obyčejné mlčení tím nejkrásnějším zážitkem.')">❤️</div>
+            <div class="reason-card" onclick="revealReason(this, 'Protože mi neskutečně chybíš každou minutu, co nejsme spolu.')">❤️</div>
+        </div>
+    </div>
+   </section> 
+
+    <section id="compliments" class="hidden">
+        <div class="card glass">
+            <h1>Sušenka štěstí 🥠✨</h1>
+            <p>Klikni na sušenku níže, rozlom ji a získej svůj magický vzkaz lásky a štěstí pro dnešní den.</p>
+            <div class="cookie-container" onclick="breakCookie()">
+                <div id="cookie-graphic" class="cookie-visual">🥠</div>
+            </div>
+            <div id="compliment-box" class="compliment-box hidden-msg"></div>
+        </div>
+    </section>
+
+    <section id="quiz" class="hidden">
+        <div class="card glass">
+            <h1>Jak dobře nás znáš? 🤔</h1>
+            <div id="quiz-container">
+                <h3 id="quiz-question">Načítám otázku...</h3>
+                <div id="quiz-options"></div>
+                <p id="quiz-progress"></p>
+            </div>
+            <div id="quiz-result-container" class="hidden-msg">
+                <h2>Kvíz dokončen! 🎉</h2>
+                <p id="quiz-score-text"></p>
+                <button class="big-btn" onclick="resetQuiz()">Zkusit znovu 🔄</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="bucket" class="hidden">
+        <div class="card glass">
+            <h1>Náš seznam snů 🌍✨</h1>
+            <p>Všechny věci, které spolu v tomto životě prožijeme a odškrtneme si.</p>
+            <div class="bucket-list" id="bucketListContainer"></div>
+        </div>
+    </section>
+
+    <section id="coupons" class="hidden">
+        <div class="card glass">
+            <h1>Tvoje milostné kupóny 🎟️</h1>
+            <p>Kliknutím na kupón ho uplatníš v reálném životě. Používej je moudře!</p>
+            <div class="coupons-grid" id="couponsContainer"></div>
+        </div>
+    </section>
+
+    <section id="notes" class="hidden">
+        <div class="card glass">
+            <h1>Naše digitální nástěnka 📌</h1>
+            <p>Zanech mi tu vzkaz, tajné přání nebo myšlenku. Text zde zůstane uložený!</p>
+            <textarea id="noteInput" placeholder="Napiš mi něco hezkého... 📝"></textarea>
+            <button class="big-btn" onclick="saveNote()">Uložit na nástěnku</button>
+            <div class="notes-board" id="notesBoard"></div>
+        </div>
+    </section>
+
+    <button class="magic-heart-btn" onclick="createHeartRain()">💖</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
