@@ -232,3 +232,26 @@ h1 { color: #d63031; font-weight: 700; margin-bottom: 15px; }
 .magic-heart-btn { position: fixed; bottom: 25px; right: 25px; background: white; border: 3px solid #ff4757; border-radius: 50%; font-size: 2em; width: 65px; height: 65px; cursor: pointer; box-shadow: 0 6px 20px rgba(255,71,87,0.4); z-index: 1000; animation: pulseBtn 2s infinite; }
 .falling-heart { position: fixed; top: -50px; font-size: 1.6em; z-index: 999; animation: fall linear forwards; pointer-events: none; }
 @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity:0; } }
+
+@media (max-width: 768px) {
+    nav {
+        display: flex !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        justify-content: flex-start !important;
+        padding: 10px 5px !important;
+        gap: 8px !important;
+        -webkit-overflow-scrolling: touch; 
+    }
+
+    nav button, nav a {
+        flex: 0 0 auto !important; 
+        padding: 8px 16px !important;
+        font-size: 14px !important;
+    }
+
+   
+    nav::-webkit-scrollbar {
+        display: none;
+    }
+}
