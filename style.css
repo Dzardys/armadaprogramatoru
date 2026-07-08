@@ -236,22 +236,16 @@ h1 { color: #d63031; font-weight: 700; margin-bottom: 15px; }
 @media (max-width: 768px) {
     nav {
         display: flex !important;
-        overflow-x: auto !important;
-        white-space: nowrap !important;
-        justify-content: flex-start !important;
-        padding: 10px 5px !important;
-        gap: 8px !important;
-        -webkit-overflow-scrolling: touch; 
+        flex-direction: column !important; 
+        align-items: center !important;
+        gap: 10px !important;
+        padding: 15px !important;
     }
 
     nav button, nav a {
-        flex: 0 0 auto !important; 
-        padding: 8px 16px !important;
-        font-size: 14px !important;
-    }
-
-   
-    nav::-webkit-scrollbar {
-        display: none;
+        width: 100% !important; 
+        max-width: 280px; 
+        padding: 12px !important;
+        font-size: 15px !important;
     }
 }
