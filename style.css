@@ -233,21 +233,47 @@ h1 { color: #d63031; font-weight: 700; margin-bottom: 15px; }
 .falling-heart { position: fixed; top: -50px; font-size: 1.6em; z-index: 999; animation: fall linear forwards; pointer-events: none; }
 @keyframes fall { to { transform: translateY(110vh) rotate(360deg); opacity:0; } }
 
+
+#menu-toggle {
+    display: none;
+}
+
 @media (max-width: 768px) {
+    
+    #menu-toggle {
+        display: block !important;
+        background: #ff7675; 
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 20px;
+        cursor: pointer;
+        margin: 15px auto; 
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    
     nav {
-        display: flex !important;
-        flex-wrap: wrap !important; 
-        justify-content: center !important;
+        display: none !important; 
+        flex-direction: column !important;
         gap: 8px !important;
         padding: 10px !important;
-        overflow: visible !important; 
+        background: rgba(255, 255, 255, 0.9); 
+        border-radius: 12px;
+        margin: 0 15px 15px 15px;
+    }
+
+
+    nav.mobile-open {
+        display: flex !important;
     }
 
     nav button, nav a {
-        flex: 1 1 auto !important; 
-        min-width: 140px !important; 
+        width: 100% !important;
         padding: 12px 10px !important;
-        font-size: 14px !important;
-        white-space: normal !important;
+        font-size: 15px !important;
+        text-align: center !important;
     }
 }
