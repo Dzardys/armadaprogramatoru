@@ -52,7 +52,32 @@ window.onload = () => {
     loadNotes();
     setupPexeso();
     setupGlitterCursor();
+
+    const startBtn = document.querySelector('nav [data-section="letter"]');
+    if (startBtn) startBtn.classList.add('nav-active');
+
+    document.querySelectorAll('img').forEach(img => {
+        img.addEventListener('error', () => handleImageError(img), { once: true });
+    });
 };
+
+// Pokud fotka chybí (assets/images ještě nejsou nahrané), zobrazí se hezký placeholder
+function handleImageError(img) {
+    if (img.dataset.placeholder === "1") return;
+    img.dataset.placeholder = "1";
+    img.src = "data:image/svg+xml;utf8," + encodeURIComponent(`
+        <svg xmlns="http://www.w3.org/2000/svg" width="400" height="500">
+            <defs>
+                <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#ffc2d1"/>
+                    <stop offset="100%" stop-color="#d9c8ff"/>
+                </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#g)"/>
+            <text x="50%" y="50%" font-size="60" text-anchor="middle" dominant-baseline="middle">📷</text>
+        </svg>
+    `);
+}
 
 function showSection(sectionId) {
     document.querySelectorAll('section').forEach(sec => {
@@ -65,10 +90,17 @@ function showSection(sectionId) {
         activeSec.classList.add('active');
     }
     if(sectionId === 'letter' && !letterTyped) typeLetter();
-    
+
+    // Zvýraznění aktivní položky v menu
+    document.querySelectorAll('nav [data-section]').forEach(btn => {
+        btn.classList.toggle('nav-active', btn.dataset.section === sectionId);
+    });
+
     // Automatické zatvorenie menu na mobile po kliknutí na sekciu
     const mobileNav = document.querySelector('nav');
     if(mobileNav) mobileNav.classList.remove('mobile-open');
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function setupGlitterCursor() {
@@ -151,7 +183,9 @@ function changePhoto(direction) {
     if(!img || !cap) return;
     img.style.opacity = 0.2;
     setTimeout(() => {
+        img.dataset.placeholder = "0";
         img.src = photos[currentPhotoIndex].src;
+        img.onerror = () => handleImageError(img);
         cap.innerText = photos[currentPhotoIndex].caption;
         img.style.opacity = 1;
     }, 200);
@@ -216,7 +250,7 @@ function setupPexeso() {
 
         card.innerHTML = `
             <div class="card-face card-front">❤️</div>
-            <div class="card-face card-back"><img src="${item.src}"></div>
+            <div class="card-face card-back"><img src="${item.src}" onerror="handleImageError(this)"></div>
         `;
         card.onclick = flipPexesoCard;
         board.appendChild(card);

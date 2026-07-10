@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,20 +13,20 @@
     <button id="menu-toggle" onclick="toggleMenu()">Menu ☰</button>
 
     <nav>
-        <button onclick="showSection('letter')">💌 Dopis</button>
-        <button onclick="showSection('timeline')">⏳ Příběh</button>
-        <button onclick="showSection('clock')">🕰️ Náš čas</button>
-        <button onclick="showSection('countdown')">✈️ Spolu za...</button>
-        <button onclick="showSection('gallery')">📸 Galerie</button>
-        <button onclick="showSection('ldr')">🌐 Na dálku</button>
-        <button onclick="showSection('mood')">🎭 Jak ti je?</button>
-        <button onclick="showSection('pexeso')">🧩 Pexeso</button>
-        <button onclick="showSection('reasons')">❤️ Důvody</button>
-        <button onclick="showSection('compliments')">🍪 Sušenka štěstí</button>
-        <button onclick="showSection('quiz')">🤔 Kvíz</button>
-        <button onclick="showSection('bucket')">🌍 Sny</button>
-        <button onclick="showSection('coupons')">🎟️ Kupóny</button>
-        <button onclick="showSection('notes')">📌 Nástěnka</button>
+        <button onclick="showSection('letter')" data-section="letter">💌 Dopis</button>
+        <button onclick="showSection('timeline')" data-section="timeline">⏳ Příběh</button>
+        <button onclick="showSection('clock')" data-section="clock">🕰️ Náš čas</button>
+        <button onclick="showSection('countdown')" data-section="countdown">✈️ Spolu za...</button>
+        <button onclick="showSection('gallery')" data-section="gallery">📸 Galerie</button>
+        <button onclick="showSection('ldr')" data-section="ldr">🌐 Na dálku</button>
+        <button onclick="showSection('mood')" data-section="mood">🎭 Jak ti je?</button>
+        <button onclick="showSection('pexeso')" data-section="pexeso">🧩 Pexeso</button>
+        <button onclick="showSection('reasons')" data-section="reasons">❤️ Důvody</button>
+        <button onclick="showSection('compliments')" data-section="compliments">🍪 Sušenka štěstí</button>
+        <button onclick="showSection('quiz')" data-section="quiz">🤔 Kvíz</button>
+        <button onclick="showSection('bucket')" data-section="bucket">🌍 Sny</button>
+        <button onclick="showSection('coupons')" data-section="coupons">🎟️ Kupóny</button>
+        <button onclick="showSection('notes')" data-section="notes">📌 Nástěnka</button>
     </nav>
 
     <div class="music-player-container">
@@ -55,15 +55,15 @@
             <div class="timeline-container">
                 <div class="timeline-item">
                     <h3>První setkání</h3>
-                    <p>Ten den, kdy se naše cesty poprvé zkřížily a svět žacal dávat větší smysl.</p>
+                    <p>Ten den, kdy se naše cesty poprvé zkřížily a svět začal dávat větší smysl.</p>
                 </div>
                 <div class="timeline-item">
                     <h3>První rande</h3>
-                    <p>Nervozita, dlouhé povídaní a ten kouzelný moment, kdy jsme zjistili, jak moc si rozumíme.</p>
+                    <p>Nervozita, dlouhé povídání a ten kouzelný moment, kdy jsme zjistili, jak moc si rozumíme.</p>
                 </div>
                 <div class="timeline-item">
                     <h3>Oficiálně spolu</h3>
-                    <p>Okamžik, kdy jsme si řekli, že do toho jdeme naplno společne. Nejlepší rozhodnutí mého života.</p>
+                    <p>Okamžik, kdy jsme si řekli, že do toho jdeme naplno společně. Nejlepší rozhodnutí mého života.</p>
                 </div>
             </div>
         </div>
@@ -94,7 +94,7 @@
             <div class="polaroid-wrapper">
                 <div class="polaroid">
                     <div class="photo-frame">
-                        <img id="galleryPhoto" src="assets/images/foto1.jpg" alt="Naše vzpomínka">
+                        <img id="galleryPhoto" src="assets/images/foto1.jpg" alt="Naše vzpomínka" onerror="handleImageError(this)">
                     </div>
                     <p id="photoCaption" class="polaroid-text">Naše první společná fotka</p>
                 </div>
@@ -127,7 +127,7 @@
     <section id="mood" class="hidden">
         <div class="card glass">
             <h1>Jak se dnes cítíš lásko? 🎭</h1>
-            <p>Vyber svoji aktuální náladu a já ti pošlu přesně tp, co potřebuješ slyšet.</p>
+            <p>Vyber svoji aktuální náladu a já ti pošlu přesně to, co potřebuješ slyšet.</p>
             <div class="mood-grid">
                 <button class="mood-btn happy" onclick="selectMood('happy')">🥰 Šťastná</button>
                 <button class="mood-btn sad" onclick="selectMood('sad')">😔 Smutná / Chybíš mi</button>
@@ -140,7 +140,7 @@
 
     <section id="pexeso" class="hidden">
         <div class="card glass">
-            <h1>Naše společní Pexeso 🧩</h1>
+            <h1>Naše společné Pexeso 🧩</h1>
             <p>Najdi všechny dvojice našich vzpomínek! Dokončením hry odemkneš prémiový tajný kupón.</p>
             <div class="pexeso-board" id="pexesoBoard"></div>
             <div id="pexeso-win-box" class="hidden-msg">
